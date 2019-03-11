@@ -60,7 +60,7 @@ var Msme = {
             console.log(data.table);
             table = "msmeapp_"+data.table
             status = data.status
-            query = `SELECT * from ?? where status= ?`
+            status == 'BL' ? query = `SELECT * from ?? where status <> ?` : query = `SELECT * from ?? where status= ?`
             //console.log(query)
             var results = db.query(query, [table,status] , function (error, results, fields) {
                 //if error, print blank results
