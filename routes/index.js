@@ -5,6 +5,6 @@ var test = require('../controllers/test');
 //All routes.
 router.get('/', (req, res) => { res.send('Server running') });
 
-router.get('/test', test.getItems) 
+router.post('/test', test.getList) 
 //Export the Router.
 module.exports = router;
