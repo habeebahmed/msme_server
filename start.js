@@ -27,7 +27,9 @@ counter = 0;
 var task = cron.schedule("* * * * *", function() {
         console.log("running a task every minute "+(++counter));
         cron_job.checkDueDate()
-      });
+      }, {
+            scheduled: false
+          });
 //cron_job.checkDueDate()
 //start Express server on defined port
 app.listen(port);
