@@ -4,7 +4,7 @@ var mysql = require('mysql');
 if (port === 3306) {
 
     var connection = mysql.createConnection({
-        host: '10.15.15.63',
+        host: '10.15.15.68',
         port: 3306,
         user: 'test_user',
         password: 'root',
