@@ -32,27 +32,41 @@ var Msme = {
                     res.json(apiResult);
                     
                 }
+                var r = new Promise((resolve, reject) => results.map((r) => {
+                    let query = `SELECT * FROM msmeapp_applicant_details where Application_ID_id= ?`
+                    let results = db.query(query,[r.Application_ID], (error, results,fields) =>{
+                        r.Applicant = results
+                        // console.log(results);
+                        resolve()
+                    })
+                }))
                 
-                //make results 
-                var resultJson = JSON.stringify(results);
-                resultJson = JSON.parse(resultJson);
-                var apiResult = {};
-    
+                r.then(() => {
+                    console.log('Resolved')
+                    console.log(results)
+                    //make results 
+                    var resultJson = JSON.stringify(results);
+                    resultJson = JSON.parse(resultJson);
+                    var apiResult = {};
+        
+                        
+                // create a meta table to help apps
+                //do we have results? what section? etc
+                    apiResult.meta = {
+                        table,
+                        type: "collection",
+                        total: 1,
+                        total_entries: resultJson.length
+                    }
                     
-               // create a meta table to help apps
-               //do we have results? what section? etc
-                apiResult.meta = {
-                    table,
-                    type: "collection",
-                    total: 1,
-                    total_entries: resultJson.length
-                }
+                    //add our JSON results to the data table
+                    apiResult.data = resultJson;
+                    
+                    //send JSON to Express
+                    res.json(apiResult);
+                    })
+
                 
-                //add our JSON results to the data table
-                apiResult.data = resultJson;
-                
-                //send JSON to Express
-                res.json(apiResult);
             });
         }
 
